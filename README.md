@@ -34,7 +34,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            name = "StroeerGitHubPackages"
+            name = "StroeerSDK"
             url = uri("https://maven.pkg.github.com/stroeersdk/android")
         }
     }
@@ -49,7 +49,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            name = 'StroeerGitHubPackages'
+            name = 'StroeerSDK'
             url = uri('https://maven.pkg.github.com/stroeersdk/android')
         }
     }
@@ -79,8 +79,6 @@ dependencies {
 ```
 
 `core` is required. Add `cmp` and `confiant` only when those features are needed. Replace `<SDK_VERSION>` with a version published on the repository's **Packages** page.
-
-In GitHub Actions, `GITHUB_ACTOR` and `GITHUB_TOKEN` can be used instead of local Gradle properties when the workflow repository has permission to read the package.
 
 ## Basic setup
 
