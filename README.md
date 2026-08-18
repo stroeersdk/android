@@ -22,7 +22,7 @@ Refer to the integration guide for the currently supported `compileSdk`, `target
 
 ## Installation
 
-The SDK is distributed through [GitHub Packages](https://github.com/orgs/stroeersdk/packages). GitHub requires authentication when downloading Maven packages, including public packages.
+The SDK is distributed through [GitHub Packages](https://github.com/orgs/stroeersdk/packages).
 
 ### 1. Add the GitHub Packages repository
 
