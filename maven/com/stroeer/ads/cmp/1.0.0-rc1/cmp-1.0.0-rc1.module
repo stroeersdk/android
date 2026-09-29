@@ -1,0 +1,118 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.stroeer.ads",
+    "module": "cmp",
+    "version": "1.0.0-rc1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.11.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "cmp-1.0.0-rc1.aar",
+          "url": "cmp-1.0.0-rc1.aar",
+          "size": 28064,
+          "sha512": "df7dc48374dbb77f456f4351ecd2760fff79185d1ed5616f12f65d9c084e13261767b32bf441c63a49ded05ac74145aec62a7b8bf3ffa22faeeb369bfe1b4da7",
+          "sha256": "e7af75aab2fa056a6f7f03c8bc6c4a12a6a7790b58068c8ce477971bc1b8764f",
+          "sha1": "11603548b0156d9b5082074fea3a26572ae2e3bf",
+          "md5": "57aed732a1c9120fd4e64721b0e0d995"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.16.0"
+          }
+        },
+        {
+          "group": "com.jakewharton.timber",
+          "module": "timber",
+          "version": {
+            "requires": "5.0.1"
+          }
+        },
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.9.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-reflect",
+          "version": {
+            "requires": "2.1.0"
+          }
+        },
+        {
+          "group": "com.stroeer.ads",
+          "module": "core",
+          "version": {
+            "requires": "1.0.0-rc1"
+          }
+        },
+        {
+          "group": "com.sourcepoint.cmplibrary",
+          "module": "cmplibrary",
+          "version": {
+            "requires": "7.15.13"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "cmp-1.0.0-rc1.aar",
+          "url": "cmp-1.0.0-rc1.aar",
+          "size": 28064,
+          "sha512": "df7dc48374dbb77f456f4351ecd2760fff79185d1ed5616f12f65d9c084e13261767b32bf441c63a49ded05ac74145aec62a7b8bf3ffa22faeeb369bfe1b4da7",
+          "sha256": "e7af75aab2fa056a6f7f03c8bc6c4a12a6a7790b58068c8ce477971bc1b8764f",
+          "sha1": "11603548b0156d9b5082074fea3a26572ae2e3bf",
+          "md5": "57aed732a1c9120fd4e64721b0e0d995"
+        }
+      ]
+    }
+  ]
+}

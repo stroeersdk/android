@@ -1,0 +1,125 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.stroeer.ads",
+    "module": "compose",
+    "version": "1.0.0-rc1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.11.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "compose-1.0.0-rc1.aar",
+          "url": "compose-1.0.0-rc1.aar",
+          "size": 47946,
+          "sha512": "0562c3d30b7c93c98a65c7d0fe74e5b74a54425579a17a05d04c1cbb10ef15179ef6186ca8f42ce926d9df2ed2a9d2073443110b04729f00251d1c282f6e7938",
+          "sha256": "4d50a235239ceaf2b18f53dc75c46c74473e2bb6bca5f0e7c33b8fa59bdce7a0",
+          "sha1": "18b8927e3bc1fadac51f505f500ff3cb93c6e64e",
+          "md5": "3df75e59524fe7dfd754f98b531a99e0"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.16.0"
+          }
+        },
+        {
+          "group": "com.jakewharton.timber",
+          "module": "timber",
+          "version": {
+            "requires": "5.0.1"
+          }
+        },
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.9.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-reflect",
+          "version": {
+            "requires": "2.1.0"
+          }
+        },
+        {
+          "group": "com.stroeer.ads",
+          "module": "core",
+          "version": {
+            "requires": "1.0.0-rc1"
+          }
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui",
+          "version": {
+            "requires": "1.11.4"
+          }
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime",
+          "version": {
+            "requires": "1.11.4"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "compose-1.0.0-rc1.aar",
+          "url": "compose-1.0.0-rc1.aar",
+          "size": 47946,
+          "sha512": "0562c3d30b7c93c98a65c7d0fe74e5b74a54425579a17a05d04c1cbb10ef15179ef6186ca8f42ce926d9df2ed2a9d2073443110b04729f00251d1c282f6e7938",
+          "sha256": "4d50a235239ceaf2b18f53dc75c46c74473e2bb6bca5f0e7c33b8fa59bdce7a0",
+          "sha1": "18b8927e3bc1fadac51f505f500ff3cb93c6e64e",
+          "md5": "3df75e59524fe7dfd754f98b531a99e0"
+        }
+      ]
+    }
+  ]
+}
