@@ -13,12 +13,15 @@ The Ströer SDK helps publishers integrate banner, interstitial, and rewarded ad
 ## Requirements
 
 - Android `minSdk` 24 or newer
+- `compileSdk` 36
 - Java 17
-- Kotlin 2.1.0 or newer
+- Kotlin 2.1.0
 - Gradle 8.11.1 or newer
-- Android Gradle Plugin 8.11.1 or newer
+- Android Gradle Plugin 8.10.1 or newer
 
-Refer to the integration guide for the currently supported `compileSdk`, `targetSdk`, dependency versions, and third-party SDK compatibility.
+The SDK is compiled against Kotlin 2.1.0. Newer Kotlin versions generally work, but the Kotlin metadata version of your app must stay compatible with the SDK and with Google Mobile Ads.
+
+Refer to the integration guide for the currently supported `targetSdk`, dependency versions, and third-party SDK compatibility.
 
 ## Installation
 
@@ -56,7 +59,7 @@ dependencyResolutionManagement {
 }
 ```
 
-### 3. Add the SDK modules
+### 2. Add the SDK modules
 
 Add the modules you need to your application module's `build.gradle.kts`:
 
@@ -65,6 +68,7 @@ dependencies {
     implementation("com.stroeer.ads:core:<SDK_VERSION>")
     implementation("com.stroeer.ads:cmp:<SDK_VERSION>")
     implementation("com.stroeer.ads:confiant:<SDK_VERSION>")
+    implementation("com.stroeer.ads:compose:<SDK_VERSION>")
 }
 ```
 
@@ -75,10 +79,20 @@ dependencies {
     implementation 'com.stroeer.ads:core:<SDK_VERSION>'
     implementation 'com.stroeer.ads:cmp:<SDK_VERSION>'
     implementation 'com.stroeer.ads:confiant:<SDK_VERSION>'
+    implementation 'com.stroeer.ads:compose:<SDK_VERSION>'
 }
 ```
 
-`core` is required. Add `cmp` and `confiant` only when those features are needed. Replace `<SDK_VERSION>` with a version published on the repository's **Packages** page.
+| Module | Required | Purpose |
+| --- | --- | --- |
+| `core` | Yes | Banner, interstitial, and rewarded ads |
+| `cmp` | No | SourcePoint consent management wrapper |
+| `confiant` | No | Confiant ad-quality monitoring |
+| `compose` | No | Jetpack Compose wrappers for all ad formats |
+
+Replace `<SDK_VERSION>` with a version published on the repository's **Packages** page.
+
+Any TCF-compliant CMP works without the `cmp` module — the SDK reads the standard `IABTCF_TCString` consent value from `SharedPreferences`.
 
 ## Basic setup
 
@@ -117,7 +131,51 @@ Release the banner when it is no longer needed:
 banner.destroy()
 ```
 
-For interstitial, rewarded, targeting, consent, privacy, debugging, and lifecycle examples, see the [complete integration guide](https://stroeerdigitalgroup.atlassian.net/wiki/spaces/SDGPUBLIC/pages/1890648275/Android+integration+documentation).
+## Interstitial example
+
+Interstitials must be created with an `Activity` context. Set `loadAfterReady` to `false` to control when the ad is shown:
+
+```kotlin
+val interstitial = StroeerInterstitialView(this).apply { loadAfterReady = false }
+
+interstitial.load("AD_SLOT_ID", object : StroeerInterstitialFullListener() {
+    override fun onAdLoaded() {
+        interstitial.show()
+    }
+
+    override fun onAdFailedToLoad(exception: StroeerException?) {
+        // Handle the loading failure.
+    }
+})
+```
+
+## Rewarded example
+
+```kotlin
+val rewarded = StroeerRewardedView(this).apply { loadAfterReady = false }
+
+rewarded.load("AD_SLOT_ID", object : StroeerRewardedFullListener() {
+    override fun onAdLoaded(rewardedAd: RewardedAd?) {
+        rewarded.show()
+    }
+
+    override fun onUserEarnedReward(item: RewardItem?) {
+        grantReward(item?.type, item?.amount)
+    }
+})
+```
+
+## Confiant
+
+When the optional `confiant` module is present, initialise it once with your property ID:
+
+```kotlin
+ConfiantLoader.getInstance().initialize("YOUR_CONFIANT_PROPERTY_ID")
+```
+
+If the module is not on the classpath the call is a no-op and ad loading continues normally.
+
+For Jetpack Compose, targeting, consent, privacy, debugging, and lifecycle examples, see the [complete integration guide](https://stroeerdigitalgroup.atlassian.net/wiki/spaces/SDGPUBLIC/pages/1890648275/Android+integration+documentation).
 
 ## Support
 

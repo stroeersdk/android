@@ -1,0 +1,16 @@
+.idea
+/*/build
+/app/release
+/app/production
+/build
+/app/build
+/captures
+local.properties
+.externalNativeBuild
+.DS_Store
+.gradle
+*.iml
+
+# Claude Code settings
+CLAUDE.md
+.claude/
