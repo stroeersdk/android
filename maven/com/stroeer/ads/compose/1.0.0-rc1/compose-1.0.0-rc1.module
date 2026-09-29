@@ -36,10 +36,10 @@
           "name": "compose-1.0.0-rc1.aar",
           "url": "compose-1.0.0-rc1.aar",
           "size": 47946,
-          "sha512": "0562c3d30b7c93c98a65c7d0fe74e5b74a54425579a17a05d04c1cbb10ef15179ef6186ca8f42ce926d9df2ed2a9d2073443110b04729f00251d1c282f6e7938",
-          "sha256": "4d50a235239ceaf2b18f53dc75c46c74473e2bb6bca5f0e7c33b8fa59bdce7a0",
-          "sha1": "18b8927e3bc1fadac51f505f500ff3cb93c6e64e",
-          "md5": "3df75e59524fe7dfd754f98b531a99e0"
+          "sha512": "ce91525489ac18304121f1beab8772ffcaec64e110acacb3cf61518d955f9631c212b627087810994a629ce6be9b448ea50bead5c6737f2f9cdb34370444a46c",
+          "sha256": "b07eb4e18245878cffc3e8910b0ffba485d98b255128a75cd5a543c80bd5ec15",
+          "sha1": "96ba0b435f5778f60d0e7f053cbc914b336cca09",
+          "md5": "ae304df91b40a94da73e2671522efd7a"
         }
       ]
     },
@@ -114,10 +114,10 @@
           "name": "compose-1.0.0-rc1.aar",
           "url": "compose-1.0.0-rc1.aar",
           "size": 47946,
-          "sha512": "0562c3d30b7c93c98a65c7d0fe74e5b74a54425579a17a05d04c1cbb10ef15179ef6186ca8f42ce926d9df2ed2a9d2073443110b04729f00251d1c282f6e7938",
-          "sha256": "4d50a235239ceaf2b18f53dc75c46c74473e2bb6bca5f0e7c33b8fa59bdce7a0",
-          "sha1": "18b8927e3bc1fadac51f505f500ff3cb93c6e64e",
-          "md5": "3df75e59524fe7dfd754f98b531a99e0"
+          "sha512": "ce91525489ac18304121f1beab8772ffcaec64e110acacb3cf61518d955f9631c212b627087810994a629ce6be9b448ea50bead5c6737f2f9cdb34370444a46c",
+          "sha256": "b07eb4e18245878cffc3e8910b0ffba485d98b255128a75cd5a543c80bd5ec15",
+          "sha1": "96ba0b435f5778f60d0e7f053cbc914b336cca09",
+          "md5": "ae304df91b40a94da73e2671522efd7a"
         }
       ]
     }
