@@ -11,8 +11,12 @@ import com.stroeer.ads.StroeerSDK;
 import com.stroeer.ads.exceptions.StroeerException;
 import com.stroeer.ads.formats.banner.StroeerBannerListener;
 import com.stroeer.ads.formats.banner.StroeerBannerView;
-import com.stroeer.ads.formats.interstitial.StroeerInterstitialListener;
+import com.stroeer.ads.formats.interstitial.StroeerInterstitialFullListener;
 import com.stroeer.ads.formats.interstitial.StroeerInterstitialView;
+import com.stroeer.ads.formats.rewarded.StroeerRewardedFullListener;
+import com.stroeer.ads.formats.rewarded.StroeerRewardedView;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.stroeer.cmp.StroeerConsent;
 import com.stroeer.ads.plugins.monitoring.IAdMonitorCallback;
 import com.stroeer.ads.plugins.monitoring.confiant.ConfiantLoader;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     StroeerConsent consent;
     StroeerBannerView bannerAd;
     StroeerInterstitialView interstitialAd;
+    StroeerRewardedView rewardedAd;
 
     boolean isLoading = false; // As the reload button is used, we need to track if the ad is already loading to prevent multiple loads with a single instance. if you don't have reload button, you don't need this variable.
 
@@ -44,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         StroeerSDK.enableInspectionMode();
 
         boolean useConfiant = false;
-        boolean useGravite = false;
 
         if(useConfiant) {
             // Please inquire to use this Confiant.
@@ -87,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             bannerAd = new StroeerBannerView(this);
 
+            bannerAd.getBannerConfig().setCustomTargeting(Map.of(
+                    "context", "localContext",
+                    "user", "localUser",
+                    "section", "localCustomValue, localCustomValue2"
+            ));
+
             //banner, banner2, banner3 can be used in the publisherSlotName
             bannerAd.load("banner", new StroeerBannerListener() {
                 @Override
@@ -126,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
             adContainer.addView(bannerAd);
         } catch (Exception e) {
             e.printStackTrace();
+            // Otherwise the reload button would stay blocked forever.
+            isLoading = false;
         }
     }
 
@@ -136,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     public void btnReloadClick(View view){
         // You may not need to use this reloading logic because you don't have a reload button.
         // This is just to prevent multiple loads with a single instance.
-        if(isLoading == true){
+        if(isLoading){
             Toast.makeText(getApplicationContext(), "Ad is already loading", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -158,33 +170,173 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnInterstitialClick(View view) {
         try {
+            // Release any previous instance before starting a new load.
+            destroyInterstitial();
+
+            // Interstitials must be created with an Activity context, never the application context.
             interstitialAd = new StroeerInterstitialView(this);
-            interstitialAd.load("interstitial", new StroeerInterstitialListener(){  // <-- put here your adslot name
+
+            // loadAfterReady defaults to true, which makes the SDK show the ad as soon as it is
+            // loaded. Set it to false when you want to decide yourself when the ad appears.
+            interstitialAd.setLoadAfterReady(false);
+
+            // StroeerInterstitialFullListener adds the full-screen callbacks on top of
+            // onAdLoaded/onAdFailedToLoad that StroeerInterstitialListener provides.
+            interstitialAd.load("interstitial", new StroeerInterstitialFullListener() {  // <-- put here your adslot name
                 @Override
                 public void onAdLoaded() {
+                    // With loadAfterReady = false it is up to us to show the ad.
+                    if (interstitialAd != null) {
+                        interstitialAd.show();
+                    }
                 }
 
                 @Override
                 public void onAdFailedToLoad(StroeerException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Ad load failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Interstitial load failed", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    Toast.makeText(getApplicationContext(), "Interstitial shown", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdFailedToShowFullScreenContent(StroeerException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Interstitial failed to show", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    Toast.makeText(getApplicationContext(), "Interstitial dismissed", Toast.LENGTH_SHORT).show();
+                    // The ad object cannot be shown twice, so release it here.
+                    destroyInterstitial();
+                }
+
+                @Override
+                public void onAdImpression() {
+                    Toast.makeText(getApplicationContext(), "Interstitial impression", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdClicked() {
+                    Toast.makeText(getApplicationContext(), "Interstitial clicked", Toast.LENGTH_SHORT).show();
                 }
             });
-        }catch (Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void btnRewardedClick(View view) {
+        try {
+            // Release any previous instance before starting a new load.
+            destroyRewarded();
+
+            // Rewarded ads must be created with an Activity context, never the application context.
+            rewardedAd = new StroeerRewardedView(this);
+
+            // Same as for interstitials: take control over when the ad is shown.
+            rewardedAd.setLoadAfterReady(false);
+
+            rewardedAd.load("rewarded", new StroeerRewardedFullListener() {  // <-- put here your adslot name
+                @Override
+                public void onAdLoaded(RewardedAd ad) {
+                    if (rewardedAd != null) {
+                        rewardedAd.show();
+                    }
+                }
+
+                @Override
+                public void onAdFailedToLoad(StroeerException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Rewarded load failed", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onUserEarnedReward(RewardItem item) {
+                    // Grant the reward to the user here.
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Reward earned: " + item.getAmount() + " " + item.getType(),
+                            Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    Toast.makeText(getApplicationContext(), "Rewarded shown", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdFailedToShowFullScreenContent(StroeerException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Rewarded failed to show", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    Toast.makeText(getApplicationContext(), "Rewarded dismissed", Toast.LENGTH_SHORT).show();
+                    // The ad object cannot be shown twice, so release it here.
+                    destroyRewarded();
+                }
+
+                @Override
+                public void onAdImpression() {
+                    Toast.makeText(getApplicationContext(), "Rewarded impression", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onAdClicked() {
+                    Toast.makeText(getApplicationContext(), "Rewarded clicked", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         destroyAd();
-        interstitialAd.destroy();
+        destroyInterstitial();
+        destroyRewarded();
+
+        // StroeerConsent holds this Activity and a coroutine scope, so it has to be released too.
+        // destroy() is terminal: the instance cannot be reused afterwards.
+        if (this.consent != null) {
+            this.consent.destroy();
+            this.consent = null;
+        }
+
+        super.onDestroy();
     }
 
     private void destroyAd(){
         if(bannerAd != null) {
+            // destroy() releases the ad, but it does not detach the view from its container,
+            // so remove it here to avoid stacking dead banners on every reload.
             bannerAd.destroy();
+            ViewGroup parent = (ViewGroup) bannerAd.getParent();
+            if (parent != null) {
+                parent.removeView(bannerAd);
+            }
+            bannerAd = null;
+        }
+    }
+
+    private void destroyInterstitial(){
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+            interstitialAd = null;
+        }
+    }
+
+    private void destroyRewarded(){
+        if (rewardedAd != null) {
+            rewardedAd.destroy();
+            rewardedAd = null;
         }
     }
 }

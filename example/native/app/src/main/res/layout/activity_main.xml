@@ -62,20 +62,34 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/buttonReload" />
 
-                <!-- Row 2: Consent + Privacy -->
+                <!-- Row 2: Rewarded -->
+                <Button
+                    android:id="@+id/buttonRewarded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rewarded"
+                    android:onClick="btnRewardedClick"
+                    android:layout_marginTop="12dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonReload" />
+
+                <!-- Row 3: Consent + Privacy -->
                 <Button
                     android:id="@+id/buttonConsent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Consent"
                     android:onClick="btnConsentClick"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="8dp"
                     android:elevation="0dp"
                     android:translationZ="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/buttonPrivacy"
-                    app:layout_constraintTop_toBottomOf="@id/buttonReload"
+                    app:layout_constraintTop_toBottomOf="@id/buttonRewarded"
                     app:layout_constraintHorizontal_chainStyle="spread" />
 
                 <Button
@@ -92,7 +106,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/buttonConsent" />
 
-                <!-- Row 3: Remove Consent -->
+                <!-- Row 4: Remove Consent -->
                 <Button
                     android:id="@+id/buttonRemoveConsent"
                     android:layout_width="match_parent"
