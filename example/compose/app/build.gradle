@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
+
+def sdkVersion = "1.0.0-rc1"
+
+android {
+    namespace "com.stroeer.ads.composedemo"
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.stroeer.ads.composedemo"
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName sdkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    // Stroeer SDK: core is required, compose adds the Jetpack Compose wrappers.
+    implementation "com.stroeer.ads:core:$sdkVersion"
+    implementation "com.stroeer.ads:compose:$sdkVersion"
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.activity:activity-compose:1.11.0'
+    implementation 'androidx.compose.ui:ui:1.11.4'
+    implementation 'androidx.compose.foundation:foundation:1.11.4'
+    implementation 'androidx.compose.material3:material3:1.4.0'
+}

@@ -1,0 +1,5 @@
+<resources>
+    <!-- Colors come from Compose's MaterialTheme, so the platform theme only has to
+         provide a plain, action-bar-less window. -->
+    <style name="Theme.ComposeDemo" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>

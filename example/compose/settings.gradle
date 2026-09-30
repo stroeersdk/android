@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    // For Stroeer SDK
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name = "StroeerSDK"
+            url = uri("https://stroeersdk.github.io/android/maven/")
+        }
+    }
+}
+rootProject.name = "Stroeer SDK Compose Integration"
+include ':app'
