@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/main_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Ad container placeholder -->
+                <FrameLayout
+                    android:id="@+id/generalAdContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Row 1: Reload + Interstitial -->
+                <Button
+                    android:id="@+id/buttonReload"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Reload Banner"
+                    android:onClick="btnReloadClick"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/buttonInterstitial"
+                    app:layout_constraintTop_toBottomOf="@id/generalAdContainer"
+                    app:layout_constraintHorizontal_chainStyle="spread" />
+
+                <Button
+                    android:id="@+id/buttonInterstitial"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Interstitial"
+                    android:onClick="btnInterstitialClick"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="8dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonReload"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/buttonReload" />
+
+                <!-- Row 2: Consent + Privacy -->
+                <Button
+                    android:id="@+id/buttonConsent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Consent"
+                    android:onClick="btnConsentClick"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/buttonPrivacy"
+                    app:layout_constraintTop_toBottomOf="@id/buttonReload"
+                    app:layout_constraintHorizontal_chainStyle="spread" />
+
+                <Button
+                    android:id="@+id/buttonPrivacy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Privacy"
+                    android:onClick="btnPrivacyClick"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="8dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toEndOf="@id/buttonConsent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/buttonConsent" />
+
+                <!-- Row 3: Remove Consent -->
+                <Button
+                    android:id="@+id/buttonRemoveConsent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remove Consent"
+                    android:onClick="btnRemoveConsentClick"
+                    android:layout_marginTop="12dp"
+                    android:elevation="0dp"
+                    android:translationZ="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttonConsent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

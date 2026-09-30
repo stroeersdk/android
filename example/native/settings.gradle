@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    // For Stroeer SDK
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name = "StroeerSDK"
+            url = uri("https://stroeersdk.github.io/android/maven/")
+        }
+    }
+
+    // For Confiant SDK
+    repositories {
+        // Confiant repository
+        maven{
+            url 'https://cdn.confiant-integrations.net/backend-integrations/in-app/releases/android/maven'
+            content {
+                includeGroup("com.confiant.android")
+            }
+        }
+    }
+}
+rootProject.name = "Stroeer SDK Ad Integration"
+include ':app'
