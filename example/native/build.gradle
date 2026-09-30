@@ -1,19 +1,54 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    repositories {
-        maven { url "https://maven.google.com" }
-        mavenCentral()
-        google()
+plugins {
+    id 'com.android.application' version '8.10.0'
+    id 'org.jetbrains.kotlin.android' version '2.2.0'
+}
+
+def sdkVersion = "1.0.0-rc1"
+
+android {
+    namespace "com.streer.sdkIntegration"
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.streer.sdkIntegration"
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName sdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
-plugins {
-    id 'com.android.application' version '8.10.0' apply false
-    id 'com.android.library' version '8.10.0' apply false
-    id 'org.jetbrains.kotlin.android' version '2.2.0' apply false
-}
+dependencies {
+    implementation "com.stroeer.ads:core:$sdkVersion"
+    implementation "com.stroeer.ads:cmp:$sdkVersion"
+    implementation "com.stroeer.ads:confiant:$sdkVersion"
 
-tasks.register('clean', Delete) {
-    delete rootProject.buildDir
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
+
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

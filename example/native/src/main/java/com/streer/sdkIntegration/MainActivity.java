@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize Yieldlove SDK
-        StroeerSDK.setApplicationName(getApplicationContext(),"appDfpTest");
+        StroeerSDK.setApplicationName(getApplicationContext(),"appTest");
 
         // Enable debug mode for Yieldlove SDK
         // This will provide additional logs for debugging purposes.
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             ));
 
             //banner, banner2, banner3 can be used in the publisherSlotName
-            bannerAd.load("banner", new StroeerBannerListener() {
+            bannerAd.load("b1", new StroeerBannerListener() {
                 @Override
                 public void onAdLoaded(StroeerBannerView banner) {
                     Toast.makeText(getApplicationContext(), "Ad loaded", Toast.LENGTH_SHORT).show();

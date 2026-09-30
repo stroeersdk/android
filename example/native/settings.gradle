@@ -30,4 +30,3 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Stroeer SDK Ad Integration"
-include ':app'
