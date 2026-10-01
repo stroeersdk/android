@@ -1,0 +1,118 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.stroeer.ads",
+    "module": "confiant",
+    "version": "1.0.0-rc2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.11.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "confiant-1.0.0-rc2.aar",
+          "url": "confiant-1.0.0-rc2.aar",
+          "size": 6292,
+          "sha512": "e430a66470ab2796fe2fbf9acb591f01af53aeecaf54a57af7d5cbada96b40e441f42785b122a1ba2dbf026d69b9da42c9808795ad54d87ac7d584a4e0f1c1a9",
+          "sha256": "09bcb6f14f57fa1dd8cc47d767bc58d75d65af9925f52446cf9a75e13dbb2cd1",
+          "sha1": "c97d852e5df89e173f09221a005430a7cfb14417",
+          "md5": "c43525b428027e36822cca922ae5f762"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.16.0"
+          }
+        },
+        {
+          "group": "com.jakewharton.timber",
+          "module": "timber",
+          "version": {
+            "requires": "5.0.1"
+          }
+        },
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.9.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-reflect",
+          "version": {
+            "requires": "2.1.0"
+          }
+        },
+        {
+          "group": "com.stroeer.ads",
+          "module": "core",
+          "version": {
+            "requires": "1.0.0-rc2"
+          }
+        },
+        {
+          "group": "com.confiant.android",
+          "module": "sdk",
+          "version": {
+            "requires": "6.1.4"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "confiant-1.0.0-rc2.aar",
+          "url": "confiant-1.0.0-rc2.aar",
+          "size": 6292,
+          "sha512": "e430a66470ab2796fe2fbf9acb591f01af53aeecaf54a57af7d5cbada96b40e441f42785b122a1ba2dbf026d69b9da42c9808795ad54d87ac7d584a4e0f1c1a9",
+          "sha256": "09bcb6f14f57fa1dd8cc47d767bc58d75d65af9925f52446cf9a75e13dbb2cd1",
+          "sha1": "c97d852e5df89e173f09221a005430a7cfb14417",
+          "md5": "c43525b428027e36822cca922ae5f762"
+        }
+      ]
+    }
+  ]
+}
