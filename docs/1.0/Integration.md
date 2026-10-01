@@ -2,28 +2,28 @@
 
 ## Contents
 
-- [1. Before you start](#1-before-you-start)
-- [2. Try Out Our Example App](#2-try-out-our-example-app)
-- [3. SDK environment](#3-sdk-environment)
-- [6. Set Up Application Name](#6-set-up-application-name)
-- [7. Request a banner ad](#7-request-a-banner-ad)
-- [8. Request Interstitial Ads (Full Screen Ads)](#8-request-interstitial-ads-full-screen-ads)
-- [9. Rewarded Ad](#9-rewarded-ad)
-- [10. Quick Start: Testing Configuration](#10-quick-start-testing-configuration)
-- [11. Ad Targeting](#11-ad-targeting)
-- [12. Enable ID5](#12-enable-id5)
-- [13. Clear Configuration Cache](#13-clear-configuration-cache)
-- [14. Banner Ad Auto-Refresh](#14-banner-ad-auto-refresh)
-- [15. Disable error log](#15-disable-error-log)
-- [15. Enable DebugMode](#15-enable-debugmode)
-- [16.  Debug Info Panel](#16--debug-info-panel)
+- [1. Before You Start](#1-before-you-start)
+- [2. Try the Example App](#2-try-the-example-app)
+- [3. SDK Environment](#3-sdk-environment)
+- [4. Set Up the Application Name](#4-set-up-the-application-name)
+- [5. Request a Banner Ad](#5-request-a-banner-ad)
+- [6. Request Interstitial Ads (Full-Screen Ads)](#6-request-interstitial-ads-full-screen-ads)
+- [7. Rewarded Ads](#7-rewarded-ads)
+- [8. Ad Targeting](#8-ad-targeting)
+- [9. Enable ID5](#9-enable-id5)
+- [10. Clear Configuration Cache](#10-clear-configuration-cache)
+- [11. Banner Ad Auto-Refresh](#11-banner-ad-auto-refresh)
+- [12. Disable Error Logging](#12-disable-error-logging)
+- [13. Enable Debug Mode](#13-enable-debug-mode)
+- [14. Debug Info Panel](#14-debug-info-panel)
 
 > [!IMPORTANT]
 > We have rebranded the Yieldlove SDK and changed the artifact repository.  
 > Please read the installation manual carefully and follow the updated integration instructions.
 
-## Release Note (v1.0.0)
+## Release Notes (v1.0.0)
 ### New
+
 - Rebranded the SDK as **StröerSDK**.
 - Changed the package name to `com.stroeer.ads`.
 - Updated the library repository: [GitHub – StröerSDK Android](https://github.com/stroeersdk/android)
@@ -31,12 +31,14 @@
 - Configuration is now revalidated using an **ETag** instead of being re-downloaded on every refresh.
 
 ### Fixed
+
 - Corrected the precedence of key-values and `contentUrl` for GAM. Key-values from remote configuration are now also included in Prebid requests.
 - Ad size is now rechecked at impression time, as the size of some banners is determined only when the impression occurs.
 - Fixed various minor bugs.
 - The SDK no longer adds an app-name label to the merged manifest.
 
 ### Changed
+
 - The SDK version reported to GAM and Prebid now follows the new versioning scheme (`major + 20`).
 - Removed the **OkHttp** dependency.
 - SDK libraries are now obfuscated.
@@ -68,7 +70,7 @@ Examples:
 
 ## 2. Try the Example App
 
-We recommend starting with our example app [Example App for Native Library](https://github.com/stroeersdk/android/tree/main/example/native)
+Start with the [native example app](https://github.com/stroeersdk/android/tree/main/example/native).
 
 The example app includes a preconfigured test setup, so you can run and explore the SDK before receiving your own `APPLICATION_NAME` and `PUBLISHER_CALL_STRING`.
 
@@ -76,7 +78,7 @@ It also demonstrates the key implementation details of the SDK. Once you receive
 
 ## 3. SDK Environment
 
-### 1 Android SDK Version
+### 3.1. Android SDK Version
 
 The minimum supported Android SDK version is **24**. The SDK is built with **Target SDK 36**.
 
@@ -104,7 +106,7 @@ android {
 }
 ```
 
-### 2 Java Version 17
+### 3.2. Java Version 17
 
 The SDK requires **Java 17**. Configure your project to use Java 17.
 
@@ -138,7 +140,7 @@ android {
 }
 ```
 
-### 3 Kotlin Version
+### 3.3. Kotlin Version
 
 The SDK uses **Kotlin 2.1.0** as its minimum supported Kotlin version.
 
@@ -181,7 +183,7 @@ buildscript {
   }
 }
 ```
-### 3.4 Gradle and Android Gradle Plugin
+### 3.4. Gradle and Android Gradle Plugin
 
 The following are the minimum supported versions:
 
@@ -212,7 +214,7 @@ plugins {
 }
 ```
 
-### 3.5 Add the SDK Repository
+### 3.5. Add the SDK Repository
 
 Add the StröerSDK Maven repository to your project.
 
@@ -260,7 +262,7 @@ dependencyResolutionManagement {
 
 #### Legacy Projects
 
-For Legacy projects that configure repositories in the project-level `build.gradle`, add the repository to the `allprojects` block.
+For legacy projects that configure repositories in the project-level `build.gradle`, add the repository to the `allprojects` block.
 
 **Kotlin DSL (`build.gradle.kts`)**
 
@@ -289,7 +291,7 @@ allprojects {
         mavenCentral()
 
         maven {
-            url 'https://stroeersdk.github.io/android'
+            url 'https://stroeersdk.github.io/android/maven'
             content {
                 includeGroup 'com.stroeer.ads'
             }
@@ -297,7 +299,7 @@ allprojects {
     }
 }
 ```
-### 3.6 Add SDK Dependencies
+### 3.6. Add SDK Dependencies
 
 Add the required StröerSDK modules to your app-level Gradle file.
 
@@ -322,7 +324,7 @@ dependencies {
     implementation "com.stroeer.ads:confiant:<version>"
 }
 ```
-## 6. Set Up the Application Name
+## 4. Set Up the Application Name
 
 Before requesting an ad, set the `APPLICATION_NAME` provided by Ströer.
 
@@ -340,9 +342,9 @@ StroeerSDK.setApplicationName(
 
 ---
 
-## 7. Request a Banner Ad
+## 5. Request a Banner Ad
 
-### 1 Create a BannerView
+### 5.1. Create a BannerView
 
 Create a `StroeerBannerView` and call `load()` with your `PUBLISHER_CALL_STRING`.
 
@@ -368,7 +370,7 @@ The `StroeerBannerView` should be attached to the view hierarchy while the ad is
 > We recommend attaching the `StroeerBannerView` before calling `load()`.  
 > If the view is added only after an ad has loaded successfully, some debug information may not be available when the banner fails to render, which can make troubleshooting more difficult.
 
-### 2 Banner Listener
+### 5.2. Banner Listener
 
 `StroeerBannerListener` provides default empty implementations of the banner callbacks.
 
@@ -442,24 +444,21 @@ class MyBannerListener : StroeerBannerListener() {
 
 Each callback receives the corresponding `StroeerBannerView`. This allows the same listener instance to be reused across multiple banner views if required.
 
-### 3 Complete Example
+### 5.3. Complete Example
 
-The following example demonstrates a basic banner integration inside an Activity.
+The following example demonstrates a basic banner integration inside an activity. Store the banner as an activity property so it can be released in `onDestroy()`. This example assumes that the application name has already been set during application startup.
 
 ```kotlin
+private var bannerView: StroeerBannerView? = null
+
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_banner)
 
-    // Set the application name once.
-    StroeerSDK.setApplicationName(
-        applicationContext,
-        "APPLICATION_NAME"
-    )
-
     val adContainer: ViewGroup = findViewById(R.id.adContainer)
 
-    val bannerView = StroeerBannerView(this)
+    val newBannerView = StroeerBannerView(this)
+    bannerView = newBannerView
 
     val listener = object : StroeerBannerListener() {
 
@@ -489,14 +488,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
     // Attach the banner before loading.
     adContainer.removeAllViews()
-    adContainer.addView(bannerView)
+    adContainer.addView(newBannerView)
 
     // Replace with your PUBLISHER_CALL_STRING.
-    bannerView.load("home_b1", listener)
+    newBannerView.load("home_b1", listener)
 }
 ```
 
-### 4 Destroy the Banner
+### 5.4. Destroy the Banner
 
 Call `destroy()` when the banner is no longer needed.
 
@@ -512,7 +511,8 @@ For example, you can destroy the banner when the Activity is destroyed:
 
 ```kotlin
 override fun onDestroy() {
-    bannerView.destroy()
+    bannerView?.destroy()
+    bannerView = null
     super.onDestroy()
 }
 ```
@@ -538,7 +538,7 @@ This can be useful when banners are dynamically added and removed during layout 
 
 ---
 
-### 5 Retrieve the Ad Size
+### 5.5. Retrieve the Ad Size
 
 The actual banner size may not be known until the creative has loaded.
 
@@ -565,15 +565,15 @@ override fun onAdLoaded(banner: StroeerBannerView?) {
 >        "${banner?.publisherSlotName} - ${adSize?.width} x ${adSize?.height}"
 >    )
 > }
->```
+> ```
 
-## 8. Request Interstitial Ads (Full-Screen Ads)
+## 6. Request Interstitial Ads (Full-Screen Ads)
 
 Interstitial ads are full-screen ads typically displayed at natural transition points in an application, such as between game levels, between articles, or during navigation.
 
 Unlike banner ads, interstitial ads cover the application interface until the user dismisses or interacts with the ad.
 
-### 1. Create and Load an Interstitial Ad
+### 6.1. Create and Load an Interstitial Ad
 
 To load an interstitial ad, create a `StroeerInterstitialView` and call `load()` with your `PUBLISHER_CALL_STRING`.
 
@@ -609,7 +609,7 @@ interstitialAd.load(
 )
 ```
 
-### 2. `loadAfterReady`
+### 6.2. `loadAfterReady`
 
 The `loadAfterReady` property controls whether the interstitial is displayed automatically after it has finished loading.
 
@@ -642,7 +642,7 @@ This is useful when you need full control over when the interstitial appears, fo
 > [!IMPORTANT]
 > When `loadAfterReady` is set to `false`, call `show()` only after `onAdLoaded()` has been triggered.
 
-### 3. Interstitial Listeners
+### 6.3. Interstitial Listeners
 
 The SDK provides two listener classes for handling interstitial events:
 
@@ -734,7 +734,7 @@ class MyInterstitialFullListener : StroeerInterstitialFullListener() {
 }
 ```
 
-### 4. Destroy the Interstitial
+### 6.4. Destroy the Interstitial
 
 Call `destroy()` when the interstitial is no longer needed to release its resources.
 
@@ -749,7 +749,7 @@ To display another interstitial, create a new `StroeerInterstitialView` instance
 > [!IMPORTANT]
 > After an interstitial has been shown and dismissed, call `destroy()` before discarding the instance.
 
-## 9. Rewarded Ads
+## 7. Rewarded Ads
 
 A rewarded ad is a full-screen ad that allows users to receive a reward in exchange for interacting with the ad.
 
@@ -757,7 +757,7 @@ Typical rewards include in-game currency, extra lives, or access to premium cont
 
 Rewarded ads are generally user-initiated. For example, an application may display a **Watch Ad to Earn Reward** button and show the rewarded ad after the user chooses to proceed.
 
-### 1. Create and Load a Rewarded Ad
+### 7.1. Create and Load a Rewarded Ad
 
 To load a rewarded ad, create a `StroeerRewardedView` and call `load()` with your `PUBLISHER_CALL_STRING`.
 
@@ -768,19 +768,19 @@ import com.stroeer.ads.exceptions.StroeerException
 import com.stroeer.ads.formats.rewarded.StroeerRewardedListener
 import com.stroeer.ads.formats.rewarded.StroeerRewardedView
 
-val rewardedAd = StroeerRewardedView(this)
+val rewardedAdView = StroeerRewardedView(this)
 
 // By default, the rewarded ad is shown automatically when it is ready.
 // Set this to false before loading if you want to control when it is shown.
-rewardedAd.loadAfterReady = false
+rewardedAdView.loadAfterReady = false
 
-rewardedAd.load(
+rewardedAdView.load(
     PUBLISHER_CALL_STRING,
     object : StroeerRewardedListener() {
 
         override fun onAdLoaded(rewardedAd: RewardedAd?) {
             // The rewarded ad is ready to be displayed.
-            this@YourActivity.rewardedAd.show()
+            rewardedAdView.show()
         }
 
         override fun onAdFailedToLoad(exception: StroeerException) {
@@ -797,7 +797,7 @@ rewardedAd.load(
 )
 ```
 
-### 2. `loadAfterReady`
+### 7.2. `loadAfterReady`
 
 The `loadAfterReady` property controls whether the rewarded ad is displayed automatically after it has finished loading.
 
@@ -806,7 +806,7 @@ The `loadAfterReady` property controls whether the rewarded ad is displayed auto
 The rewarded ad is displayed automatically after it has finished loading.
 
 ```kotlin
-rewardedAd.loadAfterReady = true
+rewardedAdView.loadAfterReady = true
 ```
 
 **`false`**
@@ -814,7 +814,7 @@ rewardedAd.loadAfterReady = true
 The rewarded ad is loaded but not displayed automatically.
 
 ```kotlin
-rewardedAd.loadAfterReady = false
+rewardedAdView.loadAfterReady = false
 ```
 
 Call `show()` when you are ready to display the ad:
@@ -830,7 +830,7 @@ This is useful when the application needs to wait for a specific user action bef
 > [!IMPORTANT]
 > When `loadAfterReady` is set to `false`, call `show()` only after `onAdLoaded()` has been triggered.
 
-### 3. Rewarded Listeners
+### 7.3. Rewarded Listeners
 
 The SDK provides two listener classes for handling rewarded ad events:
 
@@ -943,12 +943,12 @@ class MyRewardedFullListener : StroeerRewardedFullListener() {
 }
 ```
 
-### 4. Destroy the Rewarded Ad
+### 7.4. Destroy the Rewarded Ad
 
 Call `destroy()` when the rewarded ad is no longer needed to release its resources.
 
 ```kotlin
-rewardedAd.destroy()
+rewardedAdView.destroy()
 ```
 
 Once a rewarded ad has been destroyed, the instance must not be reused.
@@ -958,12 +958,11 @@ To display another rewarded ad, create a new `StroeerRewardedView` instance and 
 > [!IMPORTANT]
 > After a rewarded ad has been shown and dismissed, call `destroy()` before discarding the instance.
 
-
-## 11. Ad Targeting
+## 8. Ad Targeting
 
 Ad targeting provides contextual and audience information with ad requests. This can improve ad relevance and may improve advertising performance.
 
-### 1. Content URL
+### 8.1. Content URL
 
 Use `contentUrl` to specify the URL of the content the user is currently viewing. This gives Google and other advertising services additional context about the page’s topic or category.
 
@@ -973,7 +972,7 @@ StroeerSDK.setContentUrl("https://www.stroeer.de")
 
 This is especially useful for apps that display articles, product pages, or other web-based content.
 
-### 2. Custom Targeting
+### 8.2. Custom Targeting
 
 Use the `customTargeting` map to provide additional information with ad requests.
 
@@ -1004,7 +1003,7 @@ customTargeting["section"] = listOf("soccer")
 Stroeer.setGlobalCustomTargeting(customTargeting)
 ```
 
-### 3. Local Targeting
+### 8.3. Local Targeting
 
 Local targeting lets you configure targeting for an individual banner.
 
@@ -1023,7 +1022,7 @@ bannerView.bannerConfig.customTargeting = mutableMapOf(
 > [!NOTE]
 > When local targeting is configured, it takes precedence over global targeting for that banner.
 
-## 12. Enable ID5
+## 9. Enable ID5
 
 The SDK supports ID5, which is disabled by default. To enable it, contact your Ströer account manager.
 
@@ -1053,7 +1052,7 @@ Providing `CustomInfo` is optional. You can supply only the fields available to 
 - **`regionCode`:** Use an ISO 3166-2 subdivision code. For locations in the United States, use the two-letter state code.
 - **`cityCode`:** Use the United Nations Code for Trade and Transport Locations (UN/LOCODE).
 
-## 13. Clear Configuration Cache
+## 10. Clear Configuration Cache
 
 The SDK caches configuration associated with your application name and updates it periodically.
 
@@ -1063,11 +1062,11 @@ To request the latest configuration immediately, clear the cache. Reloading may 
 StroeerSDK.clearConfigurationCache(activity)
 ```
 
-## 14. Banner Ad Auto-Refresh
+## 11. Banner Ad Auto-Refresh
 
 Banner ads can refresh automatically at a configured interval, such as every 30 seconds. To enable this feature, contact your Ströer account manager.
 
-## 15. Disable Error Logging
+## 12. Disable Error Logging
 
 SDK error logs may add noise to your app’s monitoring and reporting. Set `disableErrorLog` to `true` to log these messages at the informational level instead of the error level.
 
@@ -1078,7 +1077,7 @@ ConfigurationManager.disableErrorLog = true
 > [!NOTE]
 > This setting changes the log level; it does not suppress the messages.
 
-## 16. Enable Debug Mode
+## 13. Enable Debug Mode
 
 Debug mode provides additional information for testing and troubleshooting. Once enabled, it remains active until the app is restarted.
 
@@ -1092,7 +1091,7 @@ StroeerSDK.enableDebugMode()
 StroeerSDK.enableInspectionMode()
 ```
 
-## 17. Debug Info Panel
+## 14. Debug Info Panel
 
 To activate ad debugging mode, press and hold an ad with two or three fingers for 3–4 seconds, until a notification appears.
 
@@ -1107,4 +1106,7 @@ You can also enable the panel programmatically:
 
 ```kotlin
 StroeerSDK.enableInspectionMode()
-``
+```
+
+> [!WARNING]
+> Inspection mode is intended for ad debugging. Do not enable it by default in production builds.
