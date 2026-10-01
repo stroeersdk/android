@@ -85,6 +85,6 @@
     </dependency>
   </dependencies>
   <properties>
-    <android.versionCode>229</android.versionCode>
+    <android.versionCode>230</android.versionCode>
   </properties>
 </project>
