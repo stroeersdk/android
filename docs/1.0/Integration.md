@@ -1000,7 +1000,7 @@ customTargeting["user"] = listOf("sports", "technology")
 // Add a custom key-value pair.
 customTargeting["section"] = listOf("soccer")
 
-Stroeer.setGlobalCustomTargeting(customTargeting)
+StroeerSDK.setGlobalCustomTargeting(customTargeting)
 ```
 
 ### 8.3. Local Targeting
