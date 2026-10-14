@@ -167,17 +167,6 @@ def to_storage_format(markdown_text, source_file, page_ids, repo_url, ref):
     return body
 
 
-def generated_notice(source_file, repo_url, ref, sha):
-    source_url = f"{repo_url}/blob/{ref}/{source_file}"
-    return (
-        '<ac:structured-macro ac:name="info"><ac:rich-text-body><p>'
-        f'This page is generated from <a href="{html.escape(source_url)}">{html.escape(source_file)}</a> '
-        f"(commit <code>{html.escape(sha[:7])}</code>). "
-        "Edits made in Confluence will be overwritten; please change the file in GitHub instead."
-        "</p></ac:rich-text-body></ac:structured-macro>"
-    )
-
-
 def assert_well_formed(storage, source_file):
     wrapped = (
         '<root xmlns:ac="urn:confluence:ac" xmlns:ri="urn:confluence:ri">' + storage + "</root>"
@@ -259,10 +248,9 @@ def main():
 
         with open(os.path.join(REPO_ROOT, source_file), encoding="utf-8") as source:
             markdown_text = source.read()
-        body = to_storage_format(markdown_text, source_file, page_ids, repo_url, ref)
-        # Hash the converted body (not the Markdown) so converter or mapping changes also trigger an update.
-        content_hash = hashlib.sha256(body.encode()).hexdigest()[:12]
-        storage = generated_notice(source_file, repo_url, ref, sha) + body
+        storage = to_storage_format(markdown_text, source_file, page_ids, repo_url, ref)
+        # Hash the converted page (not the Markdown) so converter or mapping changes also trigger an update.
+        content_hash = hashlib.sha256(storage.encode()).hexdigest()[:12]
         assert_well_formed(storage, source_file)
 
         if args.output_dir:
